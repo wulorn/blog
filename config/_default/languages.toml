@@ -1,0 +1,9 @@
+[en]
+  title = "闲情叙话"
+  languageName = "English"
+  weight = 1
+
+[zh]
+  title = "闲情叙话"
+  languageName = "Chinese"
+  weight = 2

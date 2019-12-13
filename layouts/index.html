@@ -1,0 +1,73 @@
+{{ define "title" }}{{ .Site.Title }}{{ end }}
+
+{{ define "main" }}
+
+{{ $enquire := resources.Get "js/enquire.min.js" | resources.Fingerprint }}
+<script src="{{ $enquire.RelPermalink }}"></script>
+
+
+<main class="{{ if $.Param "enableSidebar" }}main-main{{ else }}main{{ end }}">
+    <article class="{{ with .Section }}section-{{ . | urlize }} {{ end }}single-view">
+        <div class="content">
+            {{ .Content }}
+        </div>
+    </article>
+
+    <div class="summary__container">
+        {{ range (.Paginator).Pages }}
+        {{ .Render "summary" }}
+        {{ end }}
+    </div>
+    {{ partial "pagination/pagination" . }}
+</main>
+
+{{ if $.Param "enableSidebar" }}
+<aside class="main-side">
+    {{ partial "sidebar/sidebar-home" . }}
+</aside>
+{{ end }}
+
+<script>
+    enquire.register("screen and (max-width: 769px)", {
+        match: function () {
+            if (document.getElementsByTagName('main')[0]) {
+                document.getElementsByTagName('main')[0].className = "main";
+            }
+            if (document.getElementsByTagName('aside')[0]) {
+                document.getElementsByTagName('aside')[0].className = "hide";
+            }
+        },
+        unmatch: function () {
+            if (document.getElementsByTagName('main')[0]) {
+                document.getElementsByTagName('main')[0].className = "main-main";
+            }
+            if (document.getElementsByTagName('aside')[0]) {
+                document.getElementsByTagName('aside')[0].className = "main-side";
+            }
+            document.getElementsByClassName('navbar__burger')[0].classList.remove('is-active');
+            document.getElementsByClassName('navbar__menu')[0].classList.remove('is-active');
+            document.getElementsByClassName('mobile-search')[0].classList.add('hide');
+        },
+        setup: function () { },
+        deferSetup: true,
+        destroy: function () { },
+    });
+</script>
+<script src="https://eqcn.ajz.miesnfu.com/wp-content/plugins/wp-3d-pony/live2dw/lib/L2Dwidget.min.js"></script>
+<script>
+    L2Dwidget.init({
+        "model": {
+            jsonPath:
+                "https://unpkg.com/live2d-widget-model-hijiki@1.0.5/assets/hijiki.model.json",
+            "scale": 1
+        }, "display": {
+            "position": "right", "width": 100, "height": 200,
+            "hOffset": 0, "vOffset": -5
+        }, "mobile": { "show": true, "scale": 0.5 },
+        "react": { "opacityDefault": 0.7, "opacityOnHover": 0.2 }
+    });
+</script>
+
+<!-- <script src="https://cdn.jsdelivr.net/gh/stevenjoezhang/live2d-widget/autoload.js"></script> -->
+{{ partial "script/home-script" . }}
+{{ end }}

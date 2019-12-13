@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" dir="{{ $.Param "languagedir" | default "ltr" }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ block "title" . }}{{ .Title }} – {{ .Site.Title }}{{ end }}</title>
+    {{ partial "head/scripts" . }}
+    {{ partialCached "head/styles" . }}
+    {{ partial "head/meta" . }}
+    {{ partial "head/meta_json_ld" . }}
+    {{ partial "head/services" . }}
+    {{ partial "head/custom-head" . }}
+</head>
+
+<body id="root" class="theme__{{ index .Site.Params.themeOptions 0 }}">
+    <script>
+        var localTheme = localStorage.getItem('theme');
+        if (localTheme) {
+            document.getElementById('root').className = `theme__${localTheme}`;
+        }        
+    </script>
+    <script>
+        function doNothing() {
+            window.event.returnValue = false;
+            return false;
+        };
+    </script>
+    <script>
+        document.onkeydown = function () {
+            if (window.event && window.event.keyCode == 123) {
+                event.keyCode = 0;
+                event.returnValue = false;
+            }
+            if (window.event && window.event.keyCode == 13) {
+                window.event.keyCode = 505;
+            }
+            if (window.event && window.event.keyCode == 8) {
+                window.event.returnValue = false;
+            }
+
+        }
+    </script>
+
+    <div id="body" oncontextmenu="doNothing()">
+        {{ partial "body/custom-wrapper" . }}
+        <div class="container wrapper" style="max-width: 84%;">
+            {{ partial "navbar/site-nav" . }}
+            {{ partial "header/site-header" . }}
+            {{ block "main" . }}{{ end }}
+            {{ partial "body/custom-body" . }}
+            {{ partial "footer/site-footer" . }}
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<footer class="footer">
+    {{ partial "footer/select-lang" . }}
+    {{ partial "footer/links-social.html" . }}
+    {{ partial "footer/go-to-top" . }}
+    <hr />
+
+    {{ if $.Param "showPoweredBy" }}
+    <div class="footer__poweredby">
+
+        {{ partial "footer/site-counter" . }}
+
+        {{ if $.Site.Copyright }}
+        <p class="caption">
+            {{ with $.Site.Copyright }}{{ replace . "{year}" now.Year | markdownify}}{{ end }}
+        </p>
+        {{ end }}
+        <p class="caption">Powered by <a href="https://gohugo.io/" rel="noreferrer">Hugo</a> and the <a
+                href="https://github.com/wulorn" rel="noreferrer">&nbsp;wulorn</a></p>
+
+        <!-- Counter busuanzi -->
+        {{ if $.Param "enableBusuanzi" }}
+        {{ if .Site.Params.busuanziSiteUV }}
+        {{ if .Site.Params.busuanziSitePV }}
+        <!-- <div class="busuanzi__item"> -->
+        <span class="busuanzi__item--label">
+            访客数/访问量： <span id="busuanzi_value_site_uv"></span>/<span id="busuanzi_value_site_pv"></span>
+        </span>
+        <!-- </div> -->
+        {{ end }}
+        {{ end }}
+        {{ end }}
+        <!--  -->
+    </div>
+    {{ end }}
+
+
+
+</footer>

@@ -1,0 +1,12 @@
+name = "wulorn"
+description = "wulorn 小站."
+homepage = "https://github.com/wulorn"
+license = "MIT"
+licenselink = ""
+tags = ["accessible", "multilingual", "responsive", "blog", "search", "simple", "light", "dark", "mobile", "gallery", "technical", "fast", "presentation"]
+features = []
+min_version = "0.60.0"
+
+[author]
+  name = "wulorn"
+  homepage = "http://wulron.com"
